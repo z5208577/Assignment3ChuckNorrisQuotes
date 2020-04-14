@@ -3,6 +3,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,6 +68,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                         toastString = toastString.substring(0,toastString.indexOf(":")+2)+ toastString.substring(toastString.indexOf("[")+1,toastString.indexOf("]"));
                         Toast.makeText(mContext,toastString , Toast.LENGTH_SHORT).show();
                         requestQueueQuote.stop();
+                        Animation expandIn = AnimationUtils.loadAnimation(view.getContext(), R.anim.animation_pop);
+                        mQuoteText.startAnimation(expandIn);
                     }
                 };
 

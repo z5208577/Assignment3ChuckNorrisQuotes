@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         //Implementation of the first core requirement: "a button to trigger the API call"
         newQuote.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 //I prefer Volley as the parsing is manual (retorift request and response handling uses automatic parsing)
                 // and thus I can understand it better.
                 final RequestQueue requestQueueQuote = Volley.newRequestQueue(v.getContext());
@@ -49,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
                         Quote quote = new Gson().fromJson(response,Quote.class);
                         quoteText.setText("\"" + quote.getValue() + "\"");
                         requestQueueQuote.stop();
+
+                        Animation expandIn = AnimationUtils.loadAnimation(v.getContext(), R.anim.animation_pop);
+                        quoteText.startAnimation(expandIn);
                     }
                 };
 
@@ -64,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         });
         //Additional functionality; random quote by category. Categories are displayed in a clickable recyclerview
         getCategories(this.findViewById(android.R.id.content));
+
     }
     //
     public void getCategories(View view){

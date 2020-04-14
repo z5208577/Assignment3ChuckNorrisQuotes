@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                         Quote quote = new Gson().fromJson(response,Quote.class);
                         quoteText.setText("\"" + quote.getValue() + "\"");
                         requestQueueQuote.stop();
-
+                        // animation xml file found here; https://stackoverflow.com/questions/30535304/android-pop-in-animation; also used in categoriesAdapter;
                         Animation expandIn = AnimationUtils.loadAnimation(v.getContext(), R.anim.animation_pop);
                         quoteText.startAnimation(expandIn);
                     }
